@@ -39,8 +39,7 @@ function App() {
   useEffect(() => {
     if (leadsData.error) {
       setError(leadsData.error, "network", () => {
-        // Retry function for leads
-        window.location.reload(); // Simple retry by reloading
+        window.location.reload();
       });
     }
   }, [leadsData.error]);
@@ -48,7 +47,6 @@ function App() {
   useEffect(() => {
     if (opportunitiesError) {
       setError(opportunitiesError, "network", () => {
-        // Retry function for opportunities
         refetchOpportunities();
       });
     }
@@ -82,12 +80,11 @@ function App() {
         setSuccessMessage("");
         return;
       }
-      // Criar oportunidade com campos melhorados
       const opportunityData = {
         id: Date.now(),
         name: lead.name || "Unknown Lead",
         stage: lead.status === "qualified" ? "qualified" : "prospect",
-        amount: null, // Campo opcional - pode ser null
+        amount: null,
         accountName: lead.company || "Unknown Company",
       };
 

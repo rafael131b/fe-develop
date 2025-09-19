@@ -133,9 +133,18 @@ const LeadsTable = ({ leadsData, onConvertLead, onRowClick, convertingLeads }) =
         ))}
       </div>
       {filteredLeads.length === 0 && (
-        <p className="text-center py-8 text-gray-500">
-          No leads match your criteria.
-        </p>
+        <div className="text-center py-8">
+          {leadsData.leads.length === 0 ? (
+            <div>
+              <p className="text-gray-500 mb-2">No leads available yet.</p>
+              <p className="text-sm text-gray-400">Start by adding some leads to your database.</p>
+            </div>
+          ) : (
+            <p className="text-gray-500">
+              No leads match your current filters.
+            </p>
+          )}
+        </div>
       )}
     </div>
   );

@@ -22,7 +22,7 @@ const OpportunitiesTable = ({ opportunities }) => {
                 <td className="p-3 text-gray-700">{opp.name}</td>
                 <td className="p-3 text-gray-700">{opp.stage}</td>
                 <td className="p-3 text-gray-700">
-                  ${opp.amount.toLocaleString()}
+                  {opp.amount ? `$${opp.amount.toLocaleString()}` : "N/A"}
                 </td>
                 <td className="p-3 text-gray-700">{opp.accountName}</td>
               </tr>
@@ -39,7 +39,7 @@ const OpportunitiesTable = ({ opportunities }) => {
             </div>
             <div className="text-sm text-gray-700 space-y-1">
               <p><span className="font-medium">Stage:</span> {opp.stage}</p>
-              <p><span className="font-medium">Amount:</span> ${opp.amount.toLocaleString()}</p>
+              <p><span className="font-medium">Amount:</span> {opp.amount ? `$${opp.amount.toLocaleString()}` : "N/A"}</p>
               <p><span className="font-medium">Account:</span> {opp.accountName}</p>
             </div>
           </div>

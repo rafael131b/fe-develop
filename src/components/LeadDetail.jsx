@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Dialog } from "@headlessui/react";
-import { X } from "lucide-react";
+import { X, Loader2 } from "lucide-react";
 
 const LeadDetail = ({ isOpen, lead, onClose, onSave, updating }) => {
   const [edits, setEdits] = useState({});
@@ -42,10 +42,13 @@ const LeadDetail = ({ isOpen, lead, onClose, onSave, updating }) => {
   return (
     <Dialog open={isOpen} onClose={onClose} className="fixed inset-0 z-50">
       <div className="fixed inset-0 bg-black opacity-25" />
-      <div className="fixed inset-0 sm:right-0 sm:inset-y-0 w-full sm:w-96 bg-white p-6 overflow-y-auto">
+      <div className="fixed right-0 inset-y-0 w-96 bg-white p-6 overflow-y-auto">
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-xl font-bold text-gray-900">Lead Details</h2>
-          <button onClick={onClose} className="text-gray-500 hover:text-gray-700">
+          <button
+            onClick={onClose}
+            className="text-gray-300 hover:text-gray-500"
+          >
             <X size={24} />
           </button>
         </div>
@@ -102,20 +105,21 @@ const LeadDetail = ({ isOpen, lead, onClose, onSave, updating }) => {
               <option value="disqualified">Disqualified</option>
             </select>
           </div>
+          </div>
+          <div className="flex justify-end space-x-2 mt-6">
+            <button onClick={handleCancel} className="px-4 py-2 border rounded">
+              Cancel
+            </button>
+            <button
+              onClick={handleSave}
+              disabled={updating}
+              className="px-4 py-2 bg-blue-600 text-white rounded disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+            >
+              {updating && <Loader2 size={16} className="animate-spin" />}
+              {updating ? "Saving..." : "Save"}
+            </button>
+          </div>
         </div>
-        <div className="flex justify-end space-x-2 mt-6">
-          <button onClick={handleCancel} className="px-4 py-2 border rounded">
-            Cancel
-          </button>
-          <button
-            onClick={handleSave}
-            disabled={updating}
-            className="px-4 py-2 bg-blue-600 text-white rounded disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            {updating ? "Saving..." : "Save"}
-          </button>
-        </div>
-      </div>
     </Dialog>
   );
 };

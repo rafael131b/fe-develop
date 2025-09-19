@@ -95,26 +95,19 @@ export const useLeads = () => {
 
   const convertToOpportunity = useCallback(
     (lead, callback) => {
-      setConvertingLeads(prev => new Set(prev).add(lead.id));
+      setConvertingLeads((prev) => new Set(prev).add(lead.id));
       // Optimistic: Remove lead
       const originalLeads = [...leads];
       const filtered = leads.filter((l) => l.id !== lead.id);
       setLeads(filtered);
 
       apiRequest(
-        "/opportunities",
+        `/leads/${lead.id}`,
         {
-          method: "POST",
-          body: JSON.stringify({
-            id: Date.now(), // Simple ID
-            name: lead.name,
-            stage: "prospect",
-            amount: Math.floor(Math.random() * 9000 + 1000),
-            accountName: lead.company,
-          }),
+          method: "DELETE",
         },
         (err, result) => {
-          setConvertingLeads(prev => {
+          setConvertingLeads((prev) => {
             const newSet = new Set(prev);
             newSet.delete(lead.id);
             return newSet;

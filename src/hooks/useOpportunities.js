@@ -4,6 +4,7 @@ import { apiRequest } from "../utils/api";
 export const useOpportunities = () => {
   const [opportunities, setOpportunities] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [adding, setAdding] = useState(false);
   const [error, setError] = useState(null);
 
   const loadOpportunities = () => {
@@ -24,6 +25,7 @@ export const useOpportunities = () => {
   }, []);
 
   const addOpportunity = (opportunity, callback) => {
+    setAdding(true);
     const tempId = Date.now();
     const tempOpp = { ...opportunity, id: tempId };
     setOpportunities((prev) => [...prev, tempOpp]);
@@ -35,6 +37,7 @@ export const useOpportunities = () => {
         body: JSON.stringify(opportunity),
       },
       (err, newOpp) => {
+        setAdding(false);
         if (err) {
           setOpportunities((prev) => prev.filter((o) => o.id !== tempId)); // Rollback
           callback(err);
@@ -52,6 +55,7 @@ export const useOpportunities = () => {
   return {
     opportunities,
     loading,
+    adding,
     error,
     refetch: loadOpportunities,
     addOpportunity,
